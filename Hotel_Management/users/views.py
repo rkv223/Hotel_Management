@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
+from .models import U_Registration
 
 
 # Create your views here.
@@ -15,9 +16,9 @@ def user_register1(request):
         phone_no = request.POST['phone_no']
         password = request.POST['password']
 
-        U_Registration = User.objects.create(password=password, username=first_name, last_name=last_name, email=email, first_name=first_name)
-
-        U_Registration.save()
+        user = User.objects.create( username=first_name, last_name=last_name, email=email, first_name=first_name)
+        user.set_password(password)
+        user.save()
         print("user created")
         return redirect('/')
 
